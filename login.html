@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — SipSmart</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🍷</div>
+    Sip<span>Smart</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+  </ul>
+  <div class="nav-toggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="auth-layout">
+  <div class="auth-panel auth-panel-left">
+    <div class="auth-panel-content">
+      <div class="brand-large">
+        <div class="brand-icon">🍷</div>
+        <h1>Sip<span>Smart</span></h1>
+        <p class="tagline">Order Smart, Stay Safe</p>
+      </div>
+      <ul class="auth-perks">
+        <li>✓ Fast 2-hour home delivery</li>
+        <li>✓ Pay with EcoCash &amp; InnBucks</li>
+        <li>✓ Track your order in real-time</li>
+        <li>✓ Premium selection of drinks</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-form-wrap">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to your SipSmart account</p>
+      </div>
+
+      <div id="alert-box"></div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-icon-wrap">
+            <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+            <button type="button" class="toggle-pass" onclick="togglePassword('password', this)">👁</button>
+          </div>
+        </div>
+        <div class="form-row-between">
+          <label class="checkbox-label">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="login-btn">
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-divider"><span>New to SipSmart?</span></div>
+      <a href="register.html" class="btn btn-outline btn-block">Create Account</a>
+
+      <p class="age-note">⚠️ You must be 18 or older to use SipSmart. Drink responsibly.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  // Redirect if already logged in (log state for debugging)
+  try {
+    auth.onAuthStateChanged(user => {
+      console.log('onAuthStateChanged:', user);
+      if (user) {
+        console.log('User already signed in — redirecting to products.html');
+        window.location.href = 'products.html';
+      }
+    });
+  } catch (e) {
+    console.warn('Auth not available yet:', e);
+  }
+
+  function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    input.type = input.type === 'password' ? 'text' : 'password';
+    btn.textContent = input.type === 'password' ? '👁' : '🙈';
+  }
+
+  function showAlert(msg, type = 'error') {
+    const box = document.getElementById('alert-box');
+    box.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+    setTimeout(() => box.innerHTML = '', 5000);
+  }
+
+  document.getElementById('login-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    btn.textContent = 'Signing in…';
+    btn.disabled = true;
+
+    try {
+      const userCred = await auth.signInWithEmailAndPassword(email, password);
+      console.log('Sign-in success:', userCred);
+      // Ensure immediate redirect after successful sign-in in addition to onAuthStateChanged
+      window.location.href = 'products.html';
+    } catch (err) {
+      console.error('Sign-in error:', err);
+      let msg = 'Login failed. Please check your credentials.';
+      if (err.code === 'auth/user-not-found') msg = 'No account found with this email.';
+      if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
+      if (err.code === 'auth/invalid-email') msg = 'Invalid email address.';
+      if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Please try again later.';
+      showAlert(msg);
+    } finally {
+      btn.textContent = 'Sign In';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>

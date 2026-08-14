@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SipSmart — Order Smart, Stay Safe</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<!-- ─── Navbar ─────────────────────────────────────────────────────────── -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🍷</div>
+    Sip<span>Smart</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="cart.html" class="nav-cart-btn">
+      🛒 Cart
+      <span class="cart-badge" style="display:none">0</span>
+    </a></li>
+    <li><a href="login.html" class="btn btn-primary btn-sm" id="nav-auth-btn">Sign In</a></li>
+  </ul>
+  <div class="nav-toggle">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ─── Hero ───────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🇿🇼 Zimbabwe's Premier Delivery Service</div>
+    <h1>Sip<span class="gold">Smart</span></h1>
+    <p class="hero-tagline">Order Smart, Stay Safe</p>
+    <p class="hero-sub">Premium spirits, wines, beers and ciders delivered straight to your door. Fast, reliable, and responsible.</p>
+    <div class="hero-actions">
+      <a href="products.html" class="btn btn-primary btn-lg">Browse Products</a>
+      <a href="register.html" class="btn btn-outline-white btn-lg">Create Account</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="num">500+</span><span class="lbl">Products</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="num">2h</span><span class="lbl">Delivery</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="num">18+</span><span class="lbl">Age Verified</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Category Quicklinks ────────────────────────────────────────────── -->
+<section class="categories section">
+  <div class="container">
+    <div class="section-title">
+      <h2>Shop by Category</h2>
+      <p>Find exactly what you're looking for</p>
+    </div>
+    <div class="cat-grid">
+      <a href="products.html?category=Beer" class="cat-card">
+        <div class="cat-icon">🍺</div>
+        <h3>Beer</h3>
+        <p>Local &amp; imported lagers</p>
+      </a>
+      <a href="products.html?category=Wine" class="cat-card">
+        <div class="cat-icon">🍷</div>
+        <h3>Wine</h3>
+        <p>Reds, whites &amp; sparkling</p>
+      </a>
+      <a href="products.html?category=Spirits" class="cat-card">
+        <div class="cat-icon">🥃</div>
+        <h3>Spirits</h3>
+        <p>Whisky, vodka, rum &amp; more</p>
+      </a>
+      <a href="products.html?category=Cider" class="cat-card">
+        <div class="cat-icon">🍏</div>
+        <h3>Cider</h3>
+        <p>Crisp &amp; refreshing ciders</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Features ───────────────────────────────────────────────────────── -->
+<section class="features section" style="background:var(--green-50);">
+  <div class="container">
+    <div class="section-title">
+      <h2>Why Choose SipSmart?</h2>
+      <p>The smarter way to order your favourites</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚚</div>
+        <h3>Fast Home Delivery</h3>
+        <p>Orders delivered within 2 hours to your doorstep anywhere in Harare and Bulawayo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>EcoCash &amp; InnBucks</h3>
+        <p>Pay conveniently with Zimbabwe's most trusted mobile money platforms.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Age Verified &amp; Secure</h3>
+        <p>Strict 18+ verification at registration and delivery. Your data is always protected.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Real-Time Tracking</h3>
+        <p>Track your order from placement to delivery with live status updates.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Premium Selection</h3>
+        <p>Curated range of local and imported beers, wines, spirits and ciders.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💚</div>
+        <h3>Drink Responsibly</h3>
+        <p>We promote responsible drinking. Every order includes a safety reminder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── How It Works ───────────────────────────────────────────────────── -->
+<section class="how-it-works section">
+  <div class="container">
+    <div class="section-title">
+      <h2>How It Works</h2>
+      <p>Three simple steps to delivery</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Browse &amp; Choose</h3>
+        <p>Explore our wide selection and add your favourites to the cart.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Checkout &amp; Pay</h3>
+        <p>Enter your delivery address and pay securely via EcoCash or InnBucks.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Track &amp; Receive</h3>
+        <p>Follow your order in real-time and receive it at your door.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="products.html" class="btn btn-primary btn-lg">Start Shopping</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Responsible Drinking Banner ───────────────────────────────────── -->
+<div class="responsible-banner">
+  <div class="container">
+    <span class="icon">⚠️</span>
+    <p><strong>Drink Responsibly.</strong> Alcohol is harmful to your health. Not for sale to persons under 18. Do not drink and drive.</p>
+  </div>
+</div>
+
+<!-- ─── Footer ─────────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-warning">
+    ⚠️ Not for persons under 18. Drink responsibly. Alcohol is harmful to your health.
+  </div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Sip<span>Smart</span></h3>
+      <p>Zimbabwe's trusted online liquor delivery service. Order smart, stay safe.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="products.html">Shop</a>
+      <a href="cart.html">Cart</a>
+      <a href="tracking.html">Track Order</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="login.html">Sign In</a>
+      <a href="register.html">Register</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 SipSmart Zimbabwe. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script>
+  // Update nav auth button based on auth state
+  auth.onAuthStateChanged(user => {
+    const btn = document.getElementById('nav-auth-btn');
+    if (btn) {
+      if (user) {
+        btn.textContent = 'My Account';
+        btn.href = 'tracking.html';
+      } else {
+        btn.textContent = 'Sign In';
+        btn.href = 'login.html';
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "node-starter",
+  "private": true,
+  "scripts": {
+    "start": "node serve.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "firebase": "^12.14.0",
+    "firebase-admin": "^13.10.0"
+  }
+}

@@ -1,0 +1,165 @@
+/* ─── admin.css ─────────────────────────────────────────────────────────── */
+
+.admin-badge {
+  background: var(--gold-500);
+  color: var(--green-900);
+  font-size: .65rem;
+  font-weight: 700;
+  padding: .15rem .5rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-left: .4rem;
+  vertical-align: middle;
+}
+
+/* Stats bar */
+.admin-stats-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--neutral-200);
+  padding: 1.2rem 2rem;
+}
+.stats-inner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.stat-card {
+  text-align: center;
+  padding: .8rem;
+  background: var(--neutral-100);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--green-700);
+}
+.sc-num {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--green-800);
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+.sc-lbl {
+  font-size: .75rem;
+  color: var(--neutral-400);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+
+/* Admin section */
+.admin-section { margin-bottom: 1rem; }
+.admin-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+.admin-section-header h2 { color: var(--green-800); }
+
+/* Form grid */
+.form-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+/* Products Table */
+.admin-table-wrap {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+.admin-table thead th {
+  background: var(--green-800);
+  color: var(--white);
+  padding: .9rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: .82rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.admin-table tbody tr {
+  border-bottom: 1px solid var(--neutral-100);
+  transition: background var(--transition);
+}
+.admin-table tbody tr:hover { background: var(--neutral-100); }
+.admin-table tbody tr:last-child { border-bottom: none; }
+.admin-table td { padding: .85rem 1rem; vertical-align: middle; }
+
+.product-thumb {
+  width: 48px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.cat-pill {
+  background: var(--green-100);
+  color: var(--green-800);
+  font-size: .74rem;
+  font-weight: 600;
+  padding: .2rem .65rem;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Orders section */
+.admin-order-row {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 1rem 1.5rem;
+  align-items: center;
+  transition: box-shadow .2s;
+}
+.admin-order-row:hover { box-shadow: var(--shadow-md); }
+
+.aor-id { font-family: var(--font-display); font-weight: 700; color: var(--green-800); font-size: .95rem; }
+.aor-date { font-size: .78rem; color: var(--neutral-400); margin-top: .15rem; }
+.aor-email { font-size: .84rem; color: var(--neutral-700); }
+.aor-items { font-size: .78rem; color: var(--neutral-400); margin-top: .15rem; }
+.aor-total { font-weight: 700; font-size: 1rem; color: var(--green-800); font-family: var(--font-display); text-align: right; }
+.aor-total small { display: block; font-size: .72rem; font-weight: 400; color: var(--neutral-400); font-family: var(--font-body); }
+
+/* Status select */
+.status-select {
+  padding: .4rem .7rem;
+  border: 1.5px solid var(--neutral-200);
+  border-radius: var(--radius-full);
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--neutral-700);
+  transition: border-color .2s;
+  outline: none;
+  min-width: 160px;
+}
+.status-select:focus { border-color: var(--green-600); }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .form-row-3 { grid-template-columns: 1fr 1fr; }
+  .admin-order-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .admin-table { font-size: .78rem; }
+  .admin-table td, .admin-table th { padding: .65rem .7rem; }
+  .form-row-3 { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: 1fr 1fr; }
+}

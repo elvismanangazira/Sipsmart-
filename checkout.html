@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — SipSmart</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo-icon">🍷</div>
+    Sip<span>Smart</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="cart.html">Cart</a></li>
+    <li><a href="#" id="nav-user-link" class="btn btn-primary btn-sm">Sign In</a></li>
+  </ul>
+  <div class="nav-toggle"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-header">
+  <h1>Check<span class="gold">out</span></h1>
+  <p>Almost there — complete your order</p>
+</div>
+
+<!-- ─── Responsible Drinking Warning ──────────────────────────────────── -->
+<div class="resp-warning-bar">
+  <div class="container">
+    ⚠️ <strong>Drink Responsibly.</strong> Alcohol abuse is dangerous to health. Do not share with persons under 18. Do not drink and drive. Designated Driver? Order for others, not yourself.
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div id="checkout-content">
+      <div class="loading-overlay"><div class="spinner"></div><p>Loading…</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-warning">⚠️ Not for persons under 18. Drink responsibly.</div>
+  <div class="footer-bottom" style="max-width:1200px;margin:0 auto;padding-top:.5rem;"><p>&copy; 2024 SipSmart Zimbabwe.</p></div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
