@@ -80,6 +80,11 @@ function renderCheckout(cart, user) {
               <span class="payment-desc">Pay with InnBucks mobile money</span>
             </label>
           </div>
+          <div id="payment-instructions" style="background:var(--green-50);border-radius:var(--radius-md);padding:.8rem 1rem;margin-top:.8rem;font-size:.85rem">
+  <p id="ecocash-number">💰 Send payment to EcoCash: <strong>078 884 0432
+  /strong> (SipSmart)</p>
+  <p id="innbucks-number" style="display:none">💰 Send payment to InnBucks: <strong>078 884 0432</strong> (SipSmart)</p>
+</div>
           <div class="form-group">
             <label for="pay-phone">Mobile Number (for payment)</label>
             <input type="tel" id="pay-phone" placeholder="+263 77 123 4567"
@@ -136,7 +141,10 @@ function selectPayment(method) {
       ? 'You will receive an EcoCash payment prompt on this number.'
       : 'You will receive an InnBucks payment prompt on this number.';
   }
+  document.getElementById('ecocash-number').style.display = method === 'ecocash' ? 'block' : 'none';
+  document.getElementById('innbucks-number').style.display = method === 'innbucks' ? 'block' : 'none';
 }
+
 
 function showCoAlert(msg, type = 'error') {
   const box = document.getElementById('alert-co');
