@@ -14,7 +14,25 @@ const supabase = createClient(
 );
 
 const upload = multer({ dest: 'uploads/' });
+const uploadMem = multer({ storage: multer.memoryStorage() });
 
+app.post('/api/upload-id', uploadMem.single('file'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ success: false, error: 'No file uploaded' });
+
+    const fileName = `${Date.now()}_${req.file.originalname}`;
+    const { error } = await supabase.storage
+      .from('id-documents')
+      .upload(fileName, req.file.buffer, { contentType: req.file.mimetype });
+
+    if (error) throw error;
+
+    const { data } = supabase.storage.from('id-documents').getPublicUrl(fileName);
+    res.json({ success: true, url: data.publicUrl });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));

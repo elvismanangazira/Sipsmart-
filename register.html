@@ -92,12 +92,13 @@
           <div class="file-upload-area" id="file-drop-area">
             <input type="file" id="id-doc" accept=".jpg,.jpeg,.png,.pdf" required style="display:none">
             <div class="file-placeholder" id="file-placeholder" onclick="document.getElementById('id-doc').click()">
-              <span class="file-icon">📎</span>
+              <span class="file-icon">📄</span>
               <p>Click to upload or drag &amp; drop</p>
               <p class="form-hint">JPG, PNG or PDF — max 5MB</p>
             </div>
             <div class="file-selected" id="file-selected" style="display:none"></div>
           </div>
+          <span class="form-hint">Your ID will be manually reviewed before your account is fully verified. You can browse immediately, but orders require an approved ID.</span>
         </div>
 
         <div class="form-group">
@@ -115,7 +116,7 @@
       <div class="auth-divider"><span>Already have an account?</span></div>
       <a href="login.html" class="btn btn-outline btn-block">Sign In</a>
 
-      <p class="age-note">⚠️ You must be 18 or older. You'll be asked to show ID on delivery.</p>
+      <p class="age-note">⚠️ You must be 18 or older. Your uploaded ID will be reviewed before you can place orders.</p>
     </div>
   </div>
 </div>
@@ -269,21 +270,32 @@
       const credential = await auth.createUserWithEmailAndPassword(email, password);
       await credential.user.updateProfile({ displayName: fullname });
 
-      // Save profile info to Firestore so registration persists to a database
+      // Upload ID document via backend to Supabase Storage
+      btn.textContent = 'Uploading ID…';
+      const formData = new FormData();
+      formData.append('file', idDoc);
+      const uploadRes = await fetch(`${API_BASE}/upload-id`, { method: 'POST', body: formData });
+      const uploadJson = await uploadRes.json();
+      if (!uploadJson.success) throw new Error(uploadJson.error);
+      const idDocUrl = uploadJson.url;
+
+      // Save profile info + pending verification status to Firestore
       if (window.db) {
         await window.db.collection('users').doc(credential.user.uid).set({
           fullName: fullname,
           phone,
           email,
           dob,
+          idDocUrl,
+          verificationStatus: 'pending', // pending | approved | rejected
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
       }
 
       // Also keep a local fallback copy in localStorage
       localStorage.setItem('sipsmart_profile', JSON.stringify({ fullname, phone, dob }));
-      showAlert('Account created! Redirecting…', 'success');
-      setTimeout(() => window.location.href = 'products.html', 1500);
+      showAlert('Account created! Your ID is under review — redirecting…', 'success');
+      setTimeout(() => window.location.href = 'products.html', 1800);
     } catch (err) {
       console.error('Registration error:', err);
       let msg = 'Registration failed. Please try again.';
