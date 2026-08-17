@@ -23,7 +23,13 @@ auth.onAuthStateChanged(user => {
       link.href = 'login.html';
     }
   }
+
+  const logoutLink = document.getElementById('nav-logout-link');
+  if (logoutLink) {
+    logoutLink.style.display = user ? 'inline-block' : 'none';
+  }
 });
+
 
 async function fetchProducts() {
   const grid = document.getElementById('products-grid');

@@ -79,3 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
     a.addEventListener('click', () => navLinks && navLinks.classList.remove('open'));
   });
 });
+function handleLogout() {
+  auth.signOut().then(() => {
+    window.location.href = 'login.html';
+  }).catch(err => {
+    console.error('Logout failed:', err);
+  });
+}
