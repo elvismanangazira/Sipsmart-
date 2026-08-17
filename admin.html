@@ -17,6 +17,7 @@
   <ul class="nav-links">
     <li><a href="#products-section" class="active">Products</a></li>
     <li><a href="#orders-section">Orders</a></li>
+    <li><a href="#verifications-section">ID Verifications <span id="verif-badge" style="display:none;background:var(--error);color:#fff;border-radius:999px;padding:.05rem .45rem;font-size:.7rem;margin-left:.3rem"></span></a></li>
     <li><a href="index.html">View Site</a></li>
     <li><button class="btn btn-outline" style="border-color:rgba(255,255,255,.4);color:var(--white);font-size:.82rem;" id="signout-btn">Sign Out</button></li>
   </ul>
@@ -96,6 +97,17 @@
         <div id="products-table">
           <div class="loading-overlay"><div class="spinner"></div><p>Loading products…</p></div>
         </div>
+      </div>
+    </section>
+
+    <!-- ─── ID Verifications Section ──────────────────────────────────── -->
+    <section id="verifications-section" class="admin-section" style="margin-top:3rem">
+      <div class="admin-section-header">
+        <h2>ID Verifications</h2>
+        <button class="btn btn-secondary btn-sm" onclick="loadVerifications()">↻ Refresh</button>
+      </div>
+      <div id="verifications-list">
+        <div class="loading-overlay"><div class="spinner"></div><p>Loading verifications…</p></div>
       </div>
     </section>
 
