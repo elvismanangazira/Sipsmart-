@@ -86,3 +86,26 @@ function handleLogout() {
     console.error('Logout failed:', err);
   });
 }
+const promoMessages = [
+  "⚠️ Drink responsibly. Know your limits. 🍻",
+  "🍺 Fridays: Local beers on promotion — don't miss out!",
+  "🎉 AMA2K coming soon — order your drinks ahead of the event!"
+];
+
+let promoIndex = 0;
+
+function rotatePromoBanner() {
+  const el = document.getElementById('promo-text');
+  if (!el) return;
+
+  setInterval(() => {
+    el.style.opacity = 0;
+    setTimeout(() => {
+      promoIndex = (promoIndex + 1) % promoMessages.length;
+      el.textContent = promoMessages[promoIndex];
+      el.style.opacity = 1;
+    }, 400);
+  }, 4000);
+}
+
+document.addEventListener('DOMContentLoaded', rotatePromoBanner);

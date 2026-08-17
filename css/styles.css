@@ -530,3 +530,23 @@ footer {
   .toast-container { bottom: 1rem; right: 1rem; left: 1rem; }
   .toast { max-width: 100%; }
 }
+.promo-banner {
+  background: linear-gradient(90deg, var(--green-800), var(--green-700));
+  color: #fff;
+  padding: .6rem 1rem;
+  text-align: center;
+  font-size: .88rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.promo-icon {
+  font-size: 1rem;
+}
+
+.promo-text {
+  transition: opacity .4s ease;
+}
