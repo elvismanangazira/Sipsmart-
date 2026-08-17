@@ -82,7 +82,7 @@ function renderCheckout(cart, user) {
           </div>
           <div id="payment-instructions" style="background:var(--green-50);border-radius:var(--radius-md);padding:.8rem 1rem;margin-top:.8rem;font-size:.85rem">
   <p id="ecocash-number">💰 Send payment to EcoCash: <strong>078 884 0432
-  /strong> (SipSmart)</p>
+  </strong> (SipSmart)</p>
   <p id="innbucks-number" style="display:none">💰 Send payment to InnBucks: <strong>078 884 0432</strong> (SipSmart)</p>
 </div>
           <div class="form-group">
