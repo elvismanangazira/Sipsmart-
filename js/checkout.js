@@ -230,7 +230,7 @@ function showOrderSuccess(order) {
       <p>Thank you for your order. We'll start preparing it right away.</p>
       <div class="order-id-chip">Order ID: ${order.id.slice(0, 8).toUpperCase()}</div>
       <p style="font-size:.85rem;color:var(--neutral-400);margin-bottom:1.5rem">
-        A payment prompt will be sent to <strong>${order.payment_phone}</strong> via <strong>${order.payment_method === 'ecocash' ? 'EcoCash' : 'InnBucks'}</strong>.
+        Please complete payment via <strong>${order.payment_method === 'ecocash' ? 'EcoCash' : 'InnBucks'}</strong> using the number shown at checkout, then we'll confirm and begin processing your order.
       </p>
       <div style="display:flex;flex-direction:column;gap:.8rem">
         <a href="tracking.html?id=${order.id}" class="btn btn-primary">📦 Track My Order</a>
