@@ -109,3 +109,23 @@ function rotatePromoBanner() {
 }
 
 document.addEventListener('DOMContentLoaded', rotatePromoBanner);
+// Returns true if user is approved and allowed to proceed. Redirects otherwise.
+async function requireApprovedUser(user) {
+  if (!user) {
+    window.location.href = 'login.html';
+    return false;
+  }
+  try {
+    const doc = await window.db.collection('users').doc(user.uid).get();
+    const status = doc.exists ? doc.data().verificationStatus : 'pending';
+    if (status !== 'approved') {
+      window.location.href = `pending.html?status=${status}`;
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error('Verification check failed:', err);
+    window.location.href = 'pending.html?status=pending';
+    return false;
+  }
+}

@@ -11,8 +11,8 @@ let searchQuery = '';
   if (cat) activeCategory = cat;
 })();
 
-// Update nav user link
-auth.onAuthStateChanged(user => {
+// Update nav user link + gate access for unapproved users
+auth.onAuthStateChanged(async user => {
   const link = document.getElementById('nav-user-link');
   if (link) {
     if (user) {
@@ -24,9 +24,9 @@ auth.onAuthStateChanged(user => {
     }
   }
 
-  const logoutLink = document.getElementById('nav-logout-link');
-  if (logoutLink) {
-    logoutLink.style.display = user ? 'inline-block' : 'none';
+  if (user) {
+    const ok = await requireApprovedUser(user);
+    if (!ok) return; // redirected to pending.html already
   }
 });
 

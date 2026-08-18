@@ -3,7 +3,7 @@
 const DELIVERY_FEE = 2.00;
 let currentUser = null;
 
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(async user => {
   const link = document.getElementById('nav-user-link');
   if (link) {
     link.textContent = user ? user.displayName || 'My Account' : 'Sign In';
@@ -15,7 +15,8 @@ auth.onAuthStateChanged(user => {
     return;
   }
   currentUser = user;
-
+  const ok = await requireApprovedUser(user);
+  if (!ok) return;
   const cart = getCart();
   if (!cart.length) {
     document.getElementById('checkout-content').innerHTML = `
