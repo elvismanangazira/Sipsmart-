@@ -28,45 +28,34 @@ async function loadAll() {
 async function loadVerifications() {
   const wrap = document.getElementById('verifications-list');
   wrap.innerHTML = `<div class="loading-overlay"><div class="spinner"></div><p>Loading…</p></div>`;
-
-  if (!window.db) {
-    wrap.innerHTML = `<p style="padding:1.5rem;color:var(--error)">Firestore not available.</p>`;
-    return;
-  }
-
   try {
-    const snapshot = await window.db.collection('users')
-      .where('verificationStatus', '==', 'pending')
-      .get();
+    const res = await fetch(`${API_BASE}/users?status=pending`);
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
 
     const badge = document.getElementById('verif-badge');
-    if (snapshot.empty) {
+    if (!json.data.length) {
       badge.style.display = 'none';
       wrap.innerHTML = `<div class="empty-state"><div class="icon">✅</div><h3>No pending verifications</h3><p>All caught up.</p></div>`;
       return;
     }
-
     badge.style.display = 'inline-block';
-    badge.textContent = snapshot.size;
+    badge.textContent = json.data.length;
 
-    wrap.innerHTML = snapshot.docs.map(doc => {
-      const u = doc.data();
-      const uid = doc.id;
-      return `
-        <div class="admin-order-row" style="align-items:center">
-          <div>
-            <img src="${u.idDocUrl}" alt="ID document" style="width:90px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer" onclick="window.open('${u.idDocUrl}', '_blank')">
-          </div>
-          <div>
-            <div class="aor-email"><strong>${u.fullName || 'Unknown'}</strong></div>
-            <div class="aor-items">${u.email || ''} · ${u.phone || ''} · DOB: ${u.dob || '—'}</div>
-          </div>
-          <div style="display:flex;gap:.5rem">
-            <button class="btn btn-primary btn-sm" onclick="setVerificationStatus('${uid}', 'approved')">Approve</button>
-            <button class="btn btn-danger btn-sm" onclick="setVerificationStatus('${uid}', 'rejected')">Reject</button>
-          </div>
-        </div>`;
-    }).join('');
+    wrap.innerHTML = json.data.map(u => `
+      <div class="admin-order-row" style="align-items:center">
+        <div>
+          <img src="${u.id_doc_url}" alt="ID document" style="width:90px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer" onclick="window.open('${u.id_doc_url}', '_blank')">
+        </div>
+        <div>
+          <div class="aor-email"><strong>${u.full_name || 'Unknown'}</strong></div>
+          <div class="aor-items">${u.email || ''} · ${u.phone || ''} · DOB: ${u.dob || '—'}</div>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-primary btn-sm" onclick="setVerificationStatus('${u.uid}', 'approved')">Approve</button>
+          <button class="btn btn-danger btn-sm" onclick="setVerificationStatus('${u.uid}', 'rejected')">Reject</button>
+        </div>
+      </div>`).join('');
   } catch (err) {
     wrap.innerHTML = `<p style="padding:1.5rem;color:var(--error)">Error: ${err.message}</p>`;
   }
@@ -75,7 +64,13 @@ async function loadVerifications() {
 async function setVerificationStatus(uid, status) {
   if (!confirm(`Mark this user as ${status}?`)) return;
   try {
-    await window.db.collection('users').doc(uid).update({ verificationStatus: status });
+    const res = await fetch(`${API_BASE}/users/${uid}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status })
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.error);
     showToast(`User ${status}`, status === 'approved' ? 'success' : 'info');
     loadVerifications();
   } catch (err) {

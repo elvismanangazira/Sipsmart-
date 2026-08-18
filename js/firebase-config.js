@@ -36,7 +36,6 @@ if (location.protocol === 'file:') {
 
   // Firestore instance (compat)
   try {
-    window.db = firebase.firestore();
     console.log('Firebase Firestore ready:', !!window.db);
   } catch (err) {
     console.warn('Firestore not available:', err);

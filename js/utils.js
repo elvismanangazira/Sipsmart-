@@ -116,8 +116,9 @@ async function requireApprovedUser(user) {
     return false;
   }
   try {
-    const doc = await window.db.collection('users').doc(user.uid).get();
-    const status = doc.exists ? doc.data().verificationStatus : 'pending';
+    const res = await fetch(`${API_BASE}/users/${user.uid}`);
+    const json = await res.json();
+    const status = (json.success && json.data) ? json.data.verification_status : 'pending';
     if (status !== 'approved') {
       window.location.href = `pending.html?status=${status}`;
       return false;

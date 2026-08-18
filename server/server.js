@@ -209,3 +209,60 @@ app.patch('/api/orders/:id/status', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`SipSmart API running on http://localhost:${PORT}`);
 });
+// ─── Users / Verification ───────────────────────────────────────────
+
+app.post('/api/users', async (req, res) => {
+  try {
+    const { uid, full_name, phone, email, dob, id_doc_url } = req.body;
+    if (!uid) return res.status(400).json({ success: false, error: 'uid required' });
+    const { data, error } = await supabase
+      .from('users')
+      .upsert([{ uid, full_name, phone, email, dob, id_doc_url, verification_status: 'pending' }])
+      .select()
+      .single();
+    if (error) throw error;
+    res.status(201).json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/users/:uid', async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('users').select('*').eq('uid', req.params.uid).maybeSingle();
+    if (error) throw error;
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/api/users', async (req, res) => {
+  try {
+    const { status } = req.query;
+    let query = supabase.from('users').select('*').order('created_at', { ascending: false });
+    if (status) query = query.eq('verification_status', status);
+    const { data, error } = await query;
+    if (error) throw error;
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.patch('/api/users/:uid/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+      return res.status(400).json({ success: false, error: 'Invalid status' });
+    }
+    const { data, error } = await supabase
+      .from('users').update({ verification_status: status }).eq('uid', req.params.uid)
+      .select().single();
+    if (error) throw error;
+    res.json({ success: true, data });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
